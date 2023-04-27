@@ -1,8 +1,13 @@
 import { Router } from 'express';
 import CarController from '../Controllers/CarController';
+// import CarODM from '../Models/CarODM';
 
 const routes = Router();
 
-routes.post('/cars', (req, res, next) => new CarController(req, res, next).create());
+// const modelODM = new CarODM();
+// const service = 
 
+routes.post('/cars', (req, res, next) => new CarController(req, res, next).create());
+routes.get('/cars', (req, res, next) => new CarController(req, res, next).getAll());
+routes.get('/cars/:id', (req, res, next) => new CarController(req, res, next).getById());
 export default routes;

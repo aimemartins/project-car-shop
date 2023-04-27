@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import ICar from '../Interfaces/ICar';
 import CarService from '../Services/CarService';
+import NotFoundError from '../Errors/NotFoundError';
 
 export default class CarController {
   private req: Request;
@@ -32,6 +33,28 @@ export default class CarController {
     try {
       const newCar = await this.service.create(car);
       return this.res.status(201).json(newCar);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
+  public async getAll() {
+    try {
+      const result = await this.service.getAll();
+      return this.res.status(200).json(result);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
+  public async getById() {
+    try {
+      const { id } = this.req.params;
+      const result = await this.service.getById(id);
+      if (!result) {
+        throw new NotFoundError('Car not found');
+      }
+      return this.res.status(200).json(result);
     } catch (error) {
       this.next(error);
     }
