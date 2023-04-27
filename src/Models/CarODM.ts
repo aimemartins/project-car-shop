@@ -26,4 +26,14 @@ export default class CarODM {
     }
     return this.model.findById(id);
   }
+
+  public async update(_id: string, car: ICar): Promise <ICar | null> {
+    if (!isValidObjectId(_id)) {
+      throw new UnprocessableEntityError('Invalid mongo id');
+    }
+    return this.model.findByIdAndUpdate(
+      { _id },
+      { ...car },
+    );
+  }
 }
