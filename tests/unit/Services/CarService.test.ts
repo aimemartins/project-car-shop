@@ -6,7 +6,7 @@ import CarService from '../../../src/Services/CarService';
 // import Car from '../../../src/Domains/Car';
 import { getAllOutput, carOutput, carInput } from './Mocks/CarServiceMocks';
 
-describe('[ CAMADA SERVICE ] - Verificando Service para o endpoint /cars', function () {
+describe('[ CAMADA SERVICE DE CARS ] - Verificando Service para o endpoint /cars', function () {
   describe('LISTAGEM DE CARROS', function () {
     it('retorna a lista completa de carros', async function () {
       // arrange
