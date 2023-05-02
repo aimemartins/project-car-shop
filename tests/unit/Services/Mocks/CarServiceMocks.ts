@@ -24,3 +24,26 @@ const output = {
 
 export const getAllOutput = [new Car(output)];
 export const carOutput = new Car(output);
+
+export const carUpdateInput: ICar = {
+  model: 'Marea',
+  year: 2000,
+  color: 'White',
+  status: true,
+  buyValue: 14.990,
+  doorsQty: 4,
+  seatsQty: 5,
+};
+
+export const carUpdatedOutput = {
+  id: '6348513f34c397abcad040b2',
+  model: 'Marea',
+  year: 2000,
+  color: 'White',
+  status: true,
+  buyValue: 14.990,
+  doorsQty: 4,
+  seatsQty: 5,
+};
+
+export const updateOutput = new Car(carUpdatedOutput);

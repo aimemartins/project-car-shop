@@ -4,10 +4,15 @@ import { Model } from 'mongoose';
 // import ICar from '../../../src/Interfaces/ICar';
 import CarService from '../../../src/Services/CarService';
 // import Car from '../../../src/Domains/Car';
-import { getAllOutput, carOutput, carInput } from './Mocks/CarServiceMocks';
+import { 
+  getAllOutput, 
+  carOutput, 
+  carInput, 
+  carUpdateInput, 
+  updateOutput } from './Mocks/CarServiceMocks';
 
-describe('[ CAMADA SERVICE DE CARS ] - Verificando Service para o endpoint /cars', function () {
-  describe('LISTAGEM DE CARROS', function () {
+describe('[ 1) CAMADA SERVICE DE CARS ] - Verificando Service para o endpoint /cars', function () {
+  describe('1.1) LISTAGEM DE CARROS', function () {
     it('retorna a lista completa de carros', async function () {
       // arrange
       sinon.stub(Model, 'find').resolves(getAllOutput);
@@ -19,7 +24,7 @@ describe('[ CAMADA SERVICE DE CARS ] - Verificando Service para o endpoint /cars
     });
   });
 
-  describe('BUSCA UM CARRO POR ID', function () {
+  describe('1.2) BUSCA UM CARRO POR ID', function () {
     it(
       'retorna o Error "Invalid mongo id" caso seja passado um mongo id inválido', 
       async function () {
@@ -60,7 +65,7 @@ describe('[ CAMADA SERVICE DE CARS ] - Verificando Service para o endpoint /cars
     });
   });
 
-  describe('CADASTRO DE CARRO', function () {
+  describe('1.3) CADASTRO DE CARRO', function () {
     it('retorna o carro cadastrado com sucesso', async function () {
       // arrange
       sinon.stub(Model, 'create').resolves(carOutput);
@@ -69,6 +74,20 @@ describe('[ CAMADA SERVICE DE CARS ] - Verificando Service para o endpoint /cars
       const result = await service.create(carInput);
       // assert
       expect(result).to.be.deep.equal(carOutput);
+    });
+  });
+
+  describe('1.4) ATUALIZAÇÃO DE CARRO', function () {
+    it('retorna o carro atualizado com sucesso', async function () { 
+      // arrange
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(updateOutput);
+      sinon.stub(Model, 'findById').resolves(updateOutput);
+      // act
+      const service = new CarService();
+      const result = await service.update('6348513f34c397abcad040b2', carUpdateInput);
+      
+      // assert
+      expect(result).to.be.deep.equal(updateOutput);
     });
   });
 
